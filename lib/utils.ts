@@ -22,11 +22,17 @@ export function parseFlightData(csvData: string): { track: FlightTrackPoint[], c
 
     const header = lines[0].split(',').map(h => h.trim());
     const positionIndex = header.indexOf('Position');
+    const latIndex = header.indexOf('Latitude');
+    const lonIndex = header.indexOf('Longitude');
     const timestampIndex = header.indexOf('Timestamp');
     const callsignIndex = header.indexOf('Callsign');
 
-    if (positionIndex === -1 || timestampIndex === -1) {
-        throw new Error("El CSV debe contener las columnas 'Timestamp' y 'Position'.");
+    if (timestampIndex === -1) {
+        throw new Error("El CSV debe contener la columna 'Timestamp'.");
+    }
+    
+    if (positionIndex === -1 && (latIndex === -1 || lonIndex === -1)) {
+        throw new Error("El CSV debe contener las columnas 'Position' o 'Latitude' y 'Longitude'.");
     }
 
     let callsign: string | null = null;
@@ -54,26 +60,35 @@ export function parseFlightData(csvData: string): { track: FlightTrackPoint[], c
         }
         values.push(current.trim());
         
-        if (values.length <= Math.max(positionIndex, timestampIndex)) continue;
-
         const timestamp = parseInt(values[timestampIndex], 10);
-        const positionStr = values[positionIndex].replace(/"/g, '');
-        
-        // Handle both formats: "lat,lon" and "lat,lon" (without quotes)
         let lat: number, lon: number;
         
-        if (positionStr.includes(',')) {
-            // Format: "lat,lon" or lat,lon
-            const position = positionStr.split(',');
-            if (position.length === 2) {
-                lat = parseFloat(position[0].trim());
-                lon = parseFloat(position[1].trim());
+        if (positionIndex !== -1) {
+            // Format with Position column: "lat,lon" or lat,lon
+            const positionStr = values[positionIndex].replace(/"/g, '');
+            
+            if (positionStr.includes(',')) {
+                // Format: "lat,lon" or lat,lon
+                const position = positionStr.split(',');
+                if (position.length === 2) {
+                    lat = parseFloat(position[0].trim());
+                    lon = parseFloat(position[1].trim());
+                } else {
+                    continue; // Skip invalid position format
+                }
             } else {
-                continue; // Skip invalid position format
+                continue; // Skip if position doesn't contain comma
+            }
+        } else if (latIndex !== -1 && lonIndex !== -1) {
+            // Format with separate Latitude and Longitude columns
+            if (values.length > Math.max(latIndex, lonIndex, timestampIndex)) {
+                lat = parseFloat(values[latIndex].trim());
+                lon = parseFloat(values[lonIndex].trim());
+            } else {
+                continue; // Skip if we don't have enough columns
             }
         } else {
-            // Single value, skip
-            continue;
+            continue; // Skip if we don't have valid position data
         }
 
         if (!isNaN(lat) && !isNaN(lon) && !isNaN(timestamp)) {
