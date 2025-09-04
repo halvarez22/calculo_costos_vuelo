@@ -20,17 +20,17 @@ export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }
       role="dialog"
     >
       <div 
-        className="bg-slate-800 w-full max-w-lg rounded-2xl shadow-2xl border border-slate-700 relative flex flex-col"
+        className="bg-primary-700 w-full max-w-lg rounded-2xl shadow-2xl border border-primary-600 relative flex flex-col"
         onClick={e => e.stopPropagation()}
       >
-        <header className="p-4 flex justify-between items-center border-b border-slate-700">
+        <header className="p-4 flex justify-between items-center border-b border-primary-600">
           <h2 className="text-lg font-bold text-white">{title}</h2>
           <button 
             onClick={onClose} 
             aria-label="Cerrar modal" 
-            className="p-2 rounded-full hover:bg-slate-700 transition-colors"
+            className="p-2 rounded-full hover:bg-primary-600 transition-colors"
           >
-            <CloseIcon className="w-6 h-6 text-slate-400" />
+            <CloseIcon className="w-6 h-6 text-gray-400" />
           </button>
         </header>
         <div className="p-6 overflow-y-auto">

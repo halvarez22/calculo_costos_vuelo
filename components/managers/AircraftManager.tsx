@@ -75,21 +75,21 @@ export const AircraftManager: React.FC<AircraftManagerProps> = ({ aircrafts, set
     <div>
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-white">Aeronaves</h3>
-        <button onClick={() => handleOpenModal()} className="flex items-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-3 rounded-lg text-sm">
+        <button onClick={() => handleOpenModal()} className="flex items-center bg-accent hover:bg-accent-hover text-white font-bold py-2 px-3 rounded-lg text-sm">
           <PlusIcon className="w-4 h-4 mr-1" />
           Añadir
         </button>
       </div>
       <div className="space-y-2">
         {aircrafts.map(ac => (
-          <div key={ac.id} className="bg-slate-800 p-3 rounded-lg flex justify-between items-center">
+          <div key={ac.id} className="bg-primary-700 p-3 rounded-lg flex justify-between items-center">
             <div>
               <p className="font-semibold text-white">{`${ac.brand} ${ac.model}`}</p>
-              <p className="text-xs text-slate-400">Matrícula: {ac.registration} | Pasajeros: {ac.passengers}</p>
+              <p className="text-xs text-gray-400">Matrícula: {ac.registration} | Pasajeros: {ac.passengers}</p>
             </div>
             <div className="flex items-center space-x-2">
-              <button onClick={() => handleOpenModal(ac)} className="p-2 hover:bg-slate-700 rounded-full"><PencilIcon className="w-4 h-4 text-slate-400" /></button>
-              <button onClick={() => handleDelete(ac.id)} className="p-2 hover:bg-slate-700 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
+              <button onClick={() => handleOpenModal(ac)} className="p-2 hover:bg-primary-600 rounded-full"><PencilIcon className="w-4 h-4 text-gray-400" /></button>
+              <button onClick={() => handleDelete(ac.id)} className="p-2 hover:bg-primary-600 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
             </div>
           </div>
         ))}
@@ -103,7 +103,7 @@ export const AircraftManager: React.FC<AircraftManagerProps> = ({ aircrafts, set
                 <InputField label="Pasajeros" id="passengers" name="passengers" type="number" value={formData.passengers} onChange={handleChange} required />
             </div>
             
-            <p className="text-sm text-slate-400 pt-3 border-t border-slate-700">Parámetros de Rendimiento</p>
+            <p className="text-sm text-gray-400 pt-3 border-t border-primary-600">Parámetros de Rendimiento</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <InputField label="Velocidad Promedio (km/h)" id="averageSpeedKmh" name="averageSpeedKmh" type="number" value={formData.averageSpeedKmh} onChange={handleChange} required />
                 <InputField label="Consumo Combustible (L/h)" id="fuelConsumptionLph" name="fuelConsumptionLph" type="number" value={formData.fuelConsumptionLph} onChange={handleChange} required />
@@ -111,7 +111,7 @@ export const AircraftManager: React.FC<AircraftManagerProps> = ({ aircrafts, set
                 <InputField label="Peso (toneladas)" id="weightTon" name="weightTon" type="number" step="0.1" value={formData.weightTon} onChange={handleChange} required />
             </div>
           
-          <button type="submit" className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg mt-4">Guardar</button>
+          <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-white font-bold py-3 px-4 rounded-lg mt-4">Guardar</button>
         </form>
       </Modal>
     </div>

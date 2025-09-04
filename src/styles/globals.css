@@ -8,80 +8,115 @@ aside {
 }
 
 :root {
-  --primary-800: #1a202c;
-  --primary-700: #2d3748;
-  --primary-600: #374151;
-  --accent: #d69e2e;
+  /* Colores institucionales */
+  --primary-800: #1a202c; /* rgb(26, 32, 44), hsl(220,26%,14%) */
+  --primary-700: #2d3748; /* rgb(45, 55, 72), hsl(218,23%,23%) */
+  --primary-600: #374151; /* rgb(55, 65, 81), hsl(217,19%,27%) */
+  --accent: #d69e2e; /* rgb(214, 158, 46), hsl(40,67%,51%) */
   --accent-hover: #b8860b;
   --text-primary: #f3f4f6;
   --text-secondary: #d1d5db;
 }
 
 body {
-  @apply bg-slate-900 text-white min-h-screen;
+  background-color: var(--primary-800);
+  color: var(--text-primary);
+  min-height: 100vh;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply text-white font-bold;
+  color: var(--text-primary);
+  font-weight: bold;
 }
 
 button, [type='button'], [type='submit'] {
-  @apply bg-sky-600 hover:bg-sky-700 text-white font-medium py-2 px-4 rounded transition-colors duration-200;
+  background-color: var(--accent);
+  color: var(--text-primary);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover, [type='button']:hover, [type='submit']:hover {
+  background-color: var(--accent-hover);
 }
 
 input, select, textarea {
-  @apply bg-slate-700 border border-slate-600 rounded p-2 text-white focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent;
+  background-color: var(--primary-700);
+  border: 1px solid var(--primary-600);
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  color: var(--text-primary);
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(214, 158, 46, 0.2);
 }
 
 .card {
-  @apply bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-700;
+  background-color: var(--primary-700);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  border: 1px solid var(--primary-600);
 }
 
 .alert-error {
-  @apply bg-red-900/30 border border-red-500 text-red-200 px-4 py-3 rounded mb-4;
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid #ef4444;
+  color: #fecaca;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
 }
 
 /* Estilos específicos para selects */
 select {
   appearance: none;
-  background-color: #334155;
+  background-color: var(--primary-700);
   background-repeat: no-repeat;
   background-position: right 0.75rem center;
   background-size: 1rem;
   padding: 0.5rem 2.25rem 0.5rem 1rem;
   border-radius: 0.375rem;
-  border: 1px solid #4b5563;
-  color: white;
+  border: 1px solid var(--primary-600);
+  color: var(--text-primary);
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d1d5db' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
 }
 
 /* Estilos para las opciones del select */
 select option {
-  background-color: #1e293b;
-  color: white;
+  background-color: var(--primary-800);
+  color: var(--text-primary);
   padding: 0.5rem;
 }
 
 /* Estilo cuando el select tiene foco */
 select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(214, 158, 46, 0.2);
 }
 
 /* Estilos para scrollbar */
 ::-webkit-scrollbar {
-  @apply w-2;
+  width: 0.5rem;
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-700;
+  background-color: var(--primary-700);
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-600 rounded-full;
+  background-color: var(--primary-600);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-sky-500/50;
+  background-color: var(--accent);
 }

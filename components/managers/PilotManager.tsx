@@ -70,34 +70,34 @@ export const PilotManager: React.FC<PilotManagerProps> = ({ pilots, setPilots })
     <div>
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-white">Pilotos</h3>
-        <button onClick={() => handleOpenModal()} className="flex items-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-3 rounded-lg text-sm">
+        <button onClick={() => handleOpenModal()} className="flex items-center bg-accent hover:bg-accent-hover text-white font-bold py-2 px-3 rounded-lg text-sm">
           <PlusIcon className="w-4 h-4 mr-1" />
           Añadir
         </button>
       </div>
       <div className="space-y-2 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
         {pilots.map(p => (
-          <div key={p.id} className="bg-slate-800 p-3 rounded-lg flex justify-between items-center">
+          <div key={p.id} className="bg-primary-700 p-3 rounded-lg flex justify-between items-center">
             <div className="flex items-center">
-              <UserGroupIcon className="w-5 h-5 text-slate-400 mr-3"/>
+              <UserGroupIcon className="w-5 h-5 text-gray-400 mr-3"/>
               <div>
                 <p className="font-semibold text-white">{p.name}</p>
-                <p className="text-xs text-slate-400">Costo: ${p.costPerHour.toFixed(2)} / hr</p>
+                <p className="text-xs text-gray-400">Costo: ${p.costPerHour.toFixed(2)} / hr</p>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <button onClick={() => handleOpenModal(p)} className="p-2 hover:bg-slate-700 rounded-full"><PencilIcon className="w-4 h-4 text-slate-400" /></button>
-              <button onClick={() => handleDelete(p.id)} className="p-2 hover:bg-slate-700 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
+              <button onClick={() => handleOpenModal(p)} className="p-2 hover:bg-primary-600 rounded-full"><PencilIcon className="w-4 h-4 text-gray-400" /></button>
+              <button onClick={() => handleDelete(p.id)} className="p-2 hover:bg-primary-600 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
             </div>
           </div>
         ))}
-         {pilots.length === 0 && <p className="text-slate-400 text-center py-8">No hay pilotos definidos.</p>}
+         {pilots.length === 0 && <p className="text-gray-400 text-center py-8">No hay pilotos definidos.</p>}
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={editingPilot ? 'Editar Piloto' : 'Añadir Piloto'}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <InputField label="Nombre Completo" id="name" name="name" value={formData.name} onChange={handleChange} required />
           <InputField label="Costo por Hora ($)" id="costPerHour" name="costPerHour" type="number" step="0.01" value={formData.costPerHour} onChange={handleChange} required />
-          <button type="submit" className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg mt-4">Guardar</button>
+          <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-white font-bold py-3 px-4 rounded-lg mt-4">Guardar</button>
         </form>
       </Modal>
     </div>

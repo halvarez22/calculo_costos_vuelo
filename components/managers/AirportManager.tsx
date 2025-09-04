@@ -66,21 +66,21 @@ export const AirportManager: React.FC<AirportManagerProps> = ({ airports, setAir
     <div>
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-white">Aeropuertos</h3>
-        <button onClick={() => handleOpenModal()} className="flex items-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-3 rounded-lg text-sm">
+        <button onClick={() => handleOpenModal()} className="flex items-center bg-accent hover:bg-accent-hover text-white font-bold py-2 px-3 rounded-lg text-sm">
           <PlusIcon className="w-4 h-4 mr-1" />
           Añadir
         </button>
       </div>
       <div className="space-y-2 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
         {airports.map(ap => (
-          <div key={ap.iata} className="bg-slate-800 p-3 rounded-lg flex justify-between items-center">
+          <div key={ap.iata} className="bg-primary-700 p-3 rounded-lg flex justify-between items-center">
             <div>
               <p className="font-semibold text-white">{ap.name}</p>
-              <p className="text-xs text-slate-400">{ap.city}, {ap.country} ({ap.iata})</p>
+              <p className="text-xs text-gray-400">{ap.city}, {ap.country} ({ap.iata})</p>
             </div>
             <div className="flex items-center space-x-2">
-              <button onClick={() => handleOpenModal(ap)} className="p-2 hover:bg-slate-700 rounded-full"><PencilIcon className="w-4 h-4 text-slate-400" /></button>
-              <button onClick={() => handleDelete(ap.iata)} className="p-2 hover:bg-slate-700 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
+              <button onClick={() => handleOpenModal(ap)} className="p-2 hover:bg-primary-600 rounded-full"><PencilIcon className="w-4 h-4 text-gray-400" /></button>
+              <button onClick={() => handleDelete(ap.iata)} className="p-2 hover:bg-primary-600 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
             </div>
           </div>
         ))}
@@ -98,7 +98,7 @@ export const AirportManager: React.FC<AirportManagerProps> = ({ airports, setAir
             <InputField label="Tasa de Aterrizaje ($)" id="landingFee" name="landingFee" type="number" value={formData.landingFee} onChange={handleChange} required />
             <InputField label="Tasa de Manejo ($/ton)" id="handlingFeePerTon" name="handlingFeePerTon" type="number" value={formData.handlingFeePerTon} onChange={handleChange} required />
           </div>
-          <button type="submit" className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg mt-4">Guardar</button>
+          <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-white font-bold py-2 px-4 rounded-lg mt-4">Guardar</button>
         </form>
       </Modal>
     </div>

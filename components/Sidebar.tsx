@@ -38,8 +38,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
       onClick={() => setActiveView(view)}
       className={`flex-1 flex flex-col items-center justify-center p-3 text-xs font-medium border-b-2 transition-colors ${
         activeView === view
-          ? 'text-sky-400 border-sky-400'
-          : 'text-slate-400 border-transparent hover:bg-slate-700/50'
+          ? 'text-accent border-accent'
+          : 'text-gray-400 border-transparent hover:bg-primary-700/50'
       }`}
       aria-current={activeView === view}
     >
@@ -49,13 +49,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
   );
 
   return (
-    <aside className="bg-slate-900 border-l border-slate-700 flex flex-col h-screen overflow-y-auto">
-      <header className="p-4 text-center border-b border-slate-700 bg-slate-900/80 sticky top-0 backdrop-blur-sm z-10">
+    <aside className="bg-primary-800 border-l border-primary-600 flex flex-col h-screen overflow-y-auto">
+      <header className="p-4 text-center border-b border-primary-600 bg-primary-800/80 sticky top-0 backdrop-blur-sm z-10">
         <h2 className="text-xl font-bold text-white">Gestión de Catálogos</h2>
-        <p className="text-sm text-slate-400">Administre los datos de la aplicación.</p>
+        <p className="text-sm text-gray-400">Administre los datos de la aplicación.</p>
       </header>
 
-      <nav className="flex justify-around border-b border-slate-700 sticky top-[89px] bg-slate-900/80 backdrop-blur-sm z-10">
+      <nav className="flex justify-around border-b border-primary-600 sticky top-[89px] bg-primary-800/80 backdrop-blur-sm z-10">
         <NavButton view="aircraft" label="Aeronaves">
             <PlaneIcon className="w-5 h-5" />
         </NavButton>

@@ -80,7 +80,7 @@ export const MaintenanceManager: React.FC<MaintenanceManagerProps> = ({ maintena
     <div>
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold text-white">Gestor de Mantenimiento</h3>
-        <button onClick={() => handleOpenModal()} className="flex items-center bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-3 rounded-lg text-sm" disabled={aircrafts.length === 0}>
+        <button onClick={() => handleOpenModal()} className="flex items-center bg-accent hover:bg-accent-hover text-white font-bold py-2 px-3 rounded-lg text-sm" disabled={aircrafts.length === 0}>
           <PlusIcon className="w-4 h-4 mr-1" />
           Añadir
         </button>
@@ -91,21 +91,21 @@ export const MaintenanceManager: React.FC<MaintenanceManagerProps> = ({ maintena
             <h4 className="text-md font-bold text-sky-400 mb-2 border-b border-slate-700 pb-1">{getAircraftDisplay(aircraftId)}</h4>
             <div className="space-y-2">
               {programsByAircraft[aircraftId].map(program => (
-                <div key={program.id} className="bg-slate-800 p-3 rounded-lg flex justify-between items-center">
+                <div key={program.id} className="bg-primary-700 p-3 rounded-lg flex justify-between items-center">
                   <div>
                     <p className="font-semibold text-white">{program.name}</p>
-                    <p className="text-xs text-slate-400">Costo: ${program.cost.toLocaleString()} | Intervalo: {program.intervalFh} FH</p>
+                    <p className="text-xs text-gray-400">Costo: ${program.cost.toLocaleString()} | Intervalo: {program.intervalFh} FH</p>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <button onClick={() => handleOpenModal(program)} className="p-2 hover:bg-slate-700 rounded-full"><PencilIcon className="w-4 h-4 text-slate-400" /></button>
-                    <button onClick={() => handleDelete(program.id)} className="p-2 hover:bg-slate-700 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
+                    <button onClick={() => handleOpenModal(program)} className="p-2 hover:bg-primary-600 rounded-full"><PencilIcon className="w-4 h-4 text-gray-400" /></button>
+                    <button onClick={() => handleDelete(program.id)} className="p-2 hover:bg-primary-600 rounded-full"><TrashIcon className="w-4 h-4 text-red-400" /></button>
                   </div>
                 </div>
               ))}
             </div>
           </div>
         ))}
-        {maintenancePrograms.length === 0 && <p className="text-slate-400 text-center py-8">{aircrafts.length > 0 ? 'No hay programas de mantenimiento definidos.' : 'Añada primero una aeronave para poder crear programas de mantenimiento.'}</p>}
+        {maintenancePrograms.length === 0 && <p className="text-gray-400 text-center py-8">{aircrafts.length > 0 ? 'No hay programas de mantenimiento definidos.' : 'Añada primero una aeronave para poder crear programas de mantenimiento.'}</p>}
       </div>
       <Modal isOpen={isModalOpen} onClose={handleCloseModal} title={editingProgram ? 'Editar Programa' : 'Añadir Programa'}>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -133,7 +133,7 @@ export const MaintenanceManager: React.FC<MaintenanceManagerProps> = ({ maintena
                 <label htmlFor="description" className="block text-sm font-medium text-slate-300 mb-2">Descripción</label>
                 <textarea id="description" name="description" value={formData.description || ''} onChange={handleChange} rows={3} className="w-full bg-slate-700 border border-slate-600 rounded-lg py-2 px-3 text-white"></textarea>
             </div>
-          <button type="submit" className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-3 px-4 rounded-lg mt-4">Guardar</button>
+          <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-white font-bold py-3 px-4 rounded-lg mt-4">Guardar</button>
         </form>
       </Modal>
     </div>

@@ -49,7 +49,7 @@ export const GlobalSettingsManager: React.FC<GlobalSettingsManagerProps> = ({ gl
           onChange={handleChange} 
           required 
         />
-        <button type="submit" className="w-full bg-sky-600 hover:bg-sky-500 text-white font-bold py-2 px-4 rounded-lg">
+        <button type="submit" className="w-full bg-accent hover:bg-accent-hover text-white font-bold py-2 px-4 rounded-lg">
           {saved ? '¡Guardado!' : 'Guardar Cambios'}
         </button>
       </form>
