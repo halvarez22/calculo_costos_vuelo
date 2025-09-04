@@ -2,6 +2,14 @@
 
 import { FormData, CalculationBreakdown, Aircraft, Airport, GlobalCostParameters, AirportTax, OperationType, BillingUnit, TaxStatus, AppliedTax, Pilot, MaintenanceProgram, FlightTrackPoint } from '../types';
 
+// Function to format numbers with commas
+export function formatNumber(num: number, decimals: number = 2): string {
+  return num.toLocaleString('es-MX', {
+    minimumFractionDigits: decimals,
+    maximumFractionDigits: decimals
+  });
+}
+
 // Haversine distance function - can be used for segments
 function haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371; // Radius of the Earth in km

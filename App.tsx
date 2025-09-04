@@ -19,7 +19,7 @@ import {
   Pilot, 
   MaintenanceProgram 
 } from './types';
-import { calculateFlightCosts, parseFlightData, calculateTrackDetails } from './lib/utils';
+import { calculateFlightCosts, parseFlightData, calculateTrackDetails, formatNumber } from './lib/utils';
 import { CostBreakdownModal } from './components/CostBreakdownModal';
 import { Sidebar } from './components/Sidebar';
 
@@ -115,6 +115,23 @@ const App: React.FC = () => {
     setResults(null);
     setIsCalculated(false);
   }, [aircrafts, pilots]);
+
+  const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.type === 'text/csv') {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const csvContent = event.target?.result as string;
+        setFormData(prev => ({ ...prev, flightDataCsv: csvContent }));
+        setError(null);
+        setResults(null);
+        setIsCalculated(false);
+      };
+      reader.readAsText(file);
+    } else {
+      setError('Por favor selecciona un archivo CSV válido.');
+    }
+  }, []);
 
   const handleCalculate = useCallback((e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -297,21 +314,35 @@ const App: React.FC = () => {
                     <label htmlFor="flightDataCsv" className="block text-sm font-medium text-slate-300">
                       Datos del Vuelo (CSV)
                     </label>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setFormData(prev => ({ ...prev, flightDataCsv: '' }));
-                        setError(null);
-                        setResults(null);
-                        setIsCalculated(false);
-                      }}
-                      className="text-xs text-slate-400 hover:text-slate-200 flex items-center space-x-1"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                      </svg>
-                      <span>Limpiar</span>
-                    </button>
+                    <div className="flex space-x-2">
+                      <label className="text-xs text-slate-400 hover:text-slate-200 flex items-center space-x-1 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        <span>Cargar CSV</span>
+                        <input
+                          type="file"
+                          accept=".csv"
+                          onChange={handleFileUpload}
+                          className="hidden"
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setFormData(prev => ({ ...prev, flightDataCsv: '' }));
+                          setError(null);
+                          setResults(null);
+                          setIsCalculated(false);
+                        }}
+                        className="text-xs text-slate-400 hover:text-slate-200 flex items-center space-x-1"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                        <span>Limpiar</span>
+                      </button>
+                    </div>
                   </div>
                   <textarea
                     id="flightDataCsv"
@@ -354,15 +385,15 @@ const App: React.FC = () => {
                     <div className="space-y-2">
                       <div className="flex justify-between">
                         <span className="text-slate-400">Distancia Total:</span>
-                        <span className="text-white">{results.distanceKm.toFixed(2)} km</span>
+                        <span className="text-white">{formatNumber(results.distanceKm, 2)} km</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-slate-400">Tiempo de Vuelo:</span>
-                        <span className="text-white">{results.flightHours.toFixed(2)} horas</span>
+                        <span className="text-white">{formatNumber(results.flightHours, 2)} horas</span>
                       </div>
                       <div className="flex justify-between">
                         <span className="text-slate-400">Combustible Estimado:</span>
-                        <span className="text-white">{(results.flightHours * results.aircraft.fuelConsumptionLph).toFixed(2)} L</span>
+                        <span className="text-white">{formatNumber(results.flightHours * results.aircraft.fuelConsumptionLph, 2)} L</span>
                       </div>
                     </div>
                   </div>

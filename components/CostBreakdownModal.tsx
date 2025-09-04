@@ -3,6 +3,7 @@ import React from 'react';
 import { CalculationBreakdown } from '../types';
 import { CloseIcon } from './icons/CloseIcon';
 import { DownloadIcon } from './icons/DownloadIcon';
+import { formatNumber } from '../lib/utils';
 
 // TypeScript declarations for global libraries from CDN
 declare const html2canvas: any;
@@ -54,8 +55,8 @@ export const CostBreakdownModal: React.FC<CostBreakdownModalProps> = ({ isOpen, 
             {/* Flight Details */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-center">
                 <div className="bg-slate-700/50 p-3 rounded-lg"><p className="text-xs text-slate-400">Aeronave</p><p className="font-bold text-white text-sm">{`${breakdown.aircraft.brand} ${breakdown.aircraft.model}`}</p></div>
-                <div className="bg-slate-700/50 p-3 rounded-lg"><p className="text-xs text-slate-400">Distancia</p><p className="font-bold text-white text-sm">{breakdown.distanceKm.toFixed(0)} km</p></div>
-                <div className="bg-slate-700/50 p-3 rounded-lg"><p className="text-xs text-slate-400">Tiempo de Vuelo</p><p className="font-bold text-white text-sm">{breakdown.flightHours.toFixed(2)} hrs</p></div>
+                <div className="bg-slate-700/50 p-3 rounded-lg"><p className="text-xs text-slate-400">Distancia</p><p className="font-bold text-white text-sm">{formatNumber(breakdown.distanceKm, 0)} km</p></div>
+                <div className="bg-slate-700/50 p-3 rounded-lg"><p className="text-xs text-slate-400">Tiempo de Vuelo</p><p className="font-bold text-white text-sm">{formatNumber(breakdown.flightHours, 2)} hrs</p></div>
             </div>
 
             {/* Crew Details */}
