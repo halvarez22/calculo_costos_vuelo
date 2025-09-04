@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora de Costos de Vuelo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                800: '#1a202c',
+                700: '#2d3748',
+                600: '#374151',
+              },
+              accent: {
+                DEFAULT: '#d69e2e',
+                hover: '#b8860b',
+              },
+            },
+            backgroundColor: {
+              'primary-800': '#1a202c',
+              'primary-700': '#2d3748',
+              'primary-600': '#374151',
+              'accent': '#d69e2e',
+            },
+            textColor: {
+              'accent': '#d69e2e',
+            },
+            borderColor: {
+              'accent': '#d69e2e',
+            },
+          },
+        },
+      };
+    </script>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@^19.1.1",
+        "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+        "react/": "https://esm.sh/react@^19.1.1/"
+      }
+    }
+    </script>
+    <link rel="stylesheet" href="/src/styles/globals.css" />
+</head>
+<body class="min-h-screen">
+    <div id="root"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>

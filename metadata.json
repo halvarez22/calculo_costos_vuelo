@@ -1,0 +1,5 @@
+{
+  "name": "Calculadora de Costos de Vuelo",
+  "description": "Una aplicación para calcular el costo total y por hora de un vuelo basado en el tipo de avión, distancia, y varios costos operativos y de mantenimiento.",
+  "requestFramePermissions": []
+}
