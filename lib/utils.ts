@@ -58,17 +58,28 @@ export function parseFlightData(csvData: string): { track: FlightTrackPoint[], c
 
         const timestamp = parseInt(values[timestampIndex], 10);
         const positionStr = values[positionIndex].replace(/"/g, '');
-        const position = positionStr.split(',');
         
-        if (position.length === 2) {
-            const lat = parseFloat(position[0].trim());
-            const lon = parseFloat(position[1].trim());
+        // Handle both formats: "lat,lon" and "lat,lon" (without quotes)
+        let lat: number, lon: number;
+        
+        if (positionStr.includes(',')) {
+            // Format: "lat,lon" or lat,lon
+            const position = positionStr.split(',');
+            if (position.length === 2) {
+                lat = parseFloat(position[0].trim());
+                lon = parseFloat(position[1].trim());
+            } else {
+                continue; // Skip invalid position format
+            }
+        } else {
+            // Single value, skip
+            continue;
+        }
 
-            if (!isNaN(lat) && !isNaN(lon) && !isNaN(timestamp)) {
-                track.push({ lat, lon, timestamp });
-                if (!callsign && callsignIndex !== -1 && values[callsignIndex]) {
-                    callsign = values[callsignIndex].replace(/"/g, '').trim();
-                }
+        if (!isNaN(lat) && !isNaN(lon) && !isNaN(timestamp)) {
+            track.push({ lat, lon, timestamp });
+            if (!callsign && callsignIndex !== -1 && values[callsignIndex]) {
+                callsign = values[callsignIndex].replace(/"/g, '').trim();
             }
         }
     }
