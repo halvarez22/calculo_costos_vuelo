@@ -33,20 +33,41 @@ export function parseFlightData(csvData: string): { track: FlightTrackPoint[], c
     const track: FlightTrackPoint[] = [];
 
     for (let i = 1; i < lines.length; i++) {
-        const values = lines[i].split(',');
+        const line = lines[i].trim();
+        if (!line) continue;
+        
+        // Parse CSV line properly handling quoted values
+        const values: string[] = [];
+        let current = '';
+        let inQuotes = false;
+        
+        for (let j = 0; j < line.length; j++) {
+            const char = line[j];
+            if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                values.push(current.trim());
+                current = '';
+            } else {
+                current += char;
+            }
+        }
+        values.push(current.trim());
+        
         if (values.length <= Math.max(positionIndex, timestampIndex)) continue;
 
         const timestamp = parseInt(values[timestampIndex], 10);
-        const position = values[positionIndex].replace(/"/g, '').split(',');
+        const positionStr = values[positionIndex].replace(/"/g, '');
+        const position = positionStr.split(',');
         
         if (position.length === 2) {
-            const lat = parseFloat(position[0]);
-            const lon = parseFloat(position[1]);
+            const lat = parseFloat(position[0].trim());
+            const lon = parseFloat(position[1].trim());
 
             if (!isNaN(lat) && !isNaN(lon) && !isNaN(timestamp)) {
                 track.push({ lat, lon, timestamp });
                 if (!callsign && callsignIndex !== -1 && values[callsignIndex]) {
-                    callsign = values[callsignIndex].trim();
+                    callsign = values[callsignIndex].replace(/"/g, '').trim();
                 }
             }
         }
